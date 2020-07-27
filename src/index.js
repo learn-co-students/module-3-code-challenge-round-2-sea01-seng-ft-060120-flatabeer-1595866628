@@ -27,38 +27,45 @@ const addContent = (beer) => {
 }
 
 const updateBeer = (e) => {
-    e.preventDefault()
-    // console.log(e.target)
+    e.preventDefault()    
     console.log(e.target[0].value)
-
-
-    // let desc = document.querySelector('.description').querySelector('textArea')
-    // // console.log(desc.textArea)
+    let newDesc = e.target[0].value
+    let desc = document.querySelector('.description').querySelector('textArea')
     
-    // fetch(`http://localhost:3000/beers/1`, {
-    //     method:'PATCH',
-    //     headers:{
-    //         'Content-Type':'application/json'
-    //     },
-    //     body: JSON.stringify({description:desc})
-    // })
-    // .then(res => res.json())
-    // .then(json => {
-    //   let oldDesc =  desc.querySelector('.text-area')
-    //   oldDesc.innerText = `${desc}`
-    // })
+    
+    fetch(`http://localhost:3000/beers/1`, {
+        method:'PATCH',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({description:newDesc})
+    })
+    .then(res => res.json())
+    .then(json => {
+      let oldDesc =  desc.querySelector('.text-area')
+      oldDesc.innerText = `${newDesc}`
+    })
 }
 
+
+
 const addReview = (e) => {
+    removeList()
+    let reviewForm = document.querySelector('.review-form')
     console.log(e.target[0].value)
-    let ul = document.querySelector('.reviews')
-    // console.log(ul)
-    debugger
-    ul.innerHTML = ''
-    // console.log(ul)
+    removeList()
+    console.log(ul)
+    let newUl = document.createElement('ul')
 
     let review = document.createElement('li')
-    review.innerText = e.target.innerText
+    review.innerText = e.target[0].value
 
+    ul.appendChild(review)
+    reviewForm.reset()   
+    debugger
+}
+
+function removeList() {
+    document.querySelector('.reviews').innerHTML = '';
 }
 
